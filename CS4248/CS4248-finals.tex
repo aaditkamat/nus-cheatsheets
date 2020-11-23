@@ -243,7 +243,7 @@ outline/.style={draw=circle edge, thick}}
 
 
   \newcolumntype{a}{>{\hsize=1.5\hsize}X}
-  \newcolumntype{b}{>{\hsize=.25\hsize}X}
+%   \newcolumntype{b}{>{\hsize=.25\hsize}X}
 
   \setlength\columnsep{1.5pt}
   \setlength\columnseprule{0.1pt}
@@ -390,10 +390,12 @@ y = h^2W^3 + b^3
     where $y \in \{0,1\}$ for binary classification
     \item For multi class classification (C > 2), 
     $L_{logistic}(\hat{y}, y) = \sum_{-i}^{C}{t_ilog_2(\hat{y}_{t})}$
-    \item Softmax loss: 
+    \item Softmax Loss: 
     $L_{softmax}(\hat{y}, y) = \frac{e^{\hat{y}_[i]}}{\sum_j{e^{\hat{y}_[j]}}}$, squishes range of values to (0, 1), a probability distribution
-    \item Squared (quadratic) loss: 
-    $L_{squared}(y/hat, y) = 0.5 *(\hat{y} - y)^2$
+    \item Squared (quadratic) Loss: 
+    $L_{squared}(\hat{y}, y) = 0.5 *(\hat{y} - y)^2$
+    \item Hinge Loss:
+    $L_hinge(\hat{y}, y) = max(0, 1 - \hat{y} * y)$
 \end{itemize}
 \subsection {Gradient Descent}
 \begin{align*}
@@ -518,7 +520,7 @@ $G = (N, \Sigma, P, S)$
 \subsection{CNF}
 \begin{itemize}
     \item A -> BC or A -> a
-    \item No $epsilon$
+    \item No $\epsilon$
 \end{itemize}
 \subsection{Equivalence}
 \begin{itemize}
@@ -593,7 +595,7 @@ $G = (N, \Sigma, P, S)$
         s_{best}(i, j) = max_l [s(i, j, l)] if j - i = 1 \\
         s_{best}(i, j) = max_l [s(i, j, 1)] + max_k[s_{best}(i, k) + s_{best}(k, j)]
     \end{align*}
-    \item Best scored tree: $T\hat = argmax_{T}[s_{tree}(T)]$
+    \item Best scored tree: $\hat{T} = argmax_{T}[s_{tree}(T)]$
 \end{itemize}
 
 \section{Semantics}
