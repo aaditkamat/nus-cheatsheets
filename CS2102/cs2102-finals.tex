@@ -1,0 +1,514 @@
+\documentclass[10pt,landscape,a4paper]{scrartcl}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+% for images
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+%\usepackage[lf]{MyriadPro}
+%\usepackage[lf,minionint]{MinionPro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=0mm,bottom=1mm,left=0mm,right=1mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+%\usepackage{physics}
+\usepackage{tabularx}
+\usepackage{hhline}
+\usepackage{makecell}
+\usepackage{mathtools}
+
+\usepackage{listings}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand\codeblue[1]{\textcolor{blue}{\code{#1}}}
+
+\usepackage{lastpage}
+\usepackage{datetime}
+\yyyymmdddate
+\renewcommand{\dateseparator}{-}
+\let\bar\overline
+
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+
+\def\firstcircle{(0,0) circle (1.5cm)}
+\def\secondcircle{(0:2cm) circle (1.5cm)}
+
+\colorlet{circle edge}{myblue}
+\colorlet{circle area}{myblue!5}
+
+\tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+outline/.style={draw=circle edge, thick}}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%\everymath\expandafter{\the\everymath \color{myblue}}
+%\everydisplay\expandafter{\the\everydisplay \color{myblue}}
+
+
+\renewcommand{\baselinestretch}{.8}
+\pagestyle{empty}
+
+\global\mdfdefinestyle{header}{%
+  linecolor=gray,linewidth=1pt,%
+  leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
+}
+
+\newcommand{\header}{
+  \begin{mdframed}[style=header]
+    \footnotesize
+    \sffamily
+    CS2102 Finals Cheatsheet v1.0 (\today)\\
+    by~Aadit Rahul Kamat,~page~\thepage~of~\pageref{LastPage}
+  \end{mdframed}
+}
+
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+
+\usepackage{verbatim}
+
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.,leftmargin=2.5mm}
+\setlist[itemize]{leftmargin=3mm}
+\setlist[enumerate]{leftmargin=3.5mm}
+\setlist{nosep}
+\usepackage{minted}
+
+\def\code#1{\texttt{#1}}
+
+\newenvironment{descitemize} % a mixture of description and itemize
+{\begin{description}[leftmargin=*,before=\let\makelabel\descitemlabel]}
+{\end{description}}
+
+\newcommand{\descitemlabel}[1]{%
+  \textbullet\ \textbf{#1}%
+}
+\makeatletter
+
+
+
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\color{myblue}\sffamily\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\rmfamily\bfseries}}
+
+
+
+\def\multi@column@out{%
+  \ifnum\outputpenalty <-\@M
+    \speci@ls \else
+  \ifvoid\colbreak@box\else
+    \mult@info\@ne{Re-adding forced
+    break(s) for splitting}%
+    \setbox\@cclv\vbox{%
+      \unvbox\colbreak@box
+    \penalty-\@Mv\unvbox\@cclv}%
+  \fi
+  \splittopskip\topskip
+  \splitmaxdepth\maxdepth
+  \dimen@\@colroom
+  \divide\skip\footins\col@number
+  \ifvoid\footins \else
+    \leave@mult@footins
+  \fi
+  \let\ifshr@kingsaved\ifshr@king
+    \ifvbox \@kludgeins
+      \advance \dimen@ -\ht\@kludgeins
+      \ifdim \wd\@kludgeins>\z@
+        \shr@nkingtrue
+      \fi
+    \fi
+    \process@cols\mult@gfirstbox{%
+      %%%%% START CHANGE
+      \ifnum\count@=\numexpr\mult@rightbox+2\relax
+        \setbox\count@\vsplit\@cclv to \dimexpr \dimen@-1cm\relax
+        \setbox\count@\vbox to \dimen@{\vbox to 1cm{\header}\unvbox\count@\vss}%
+      \else
+        \setbox\count@\vsplit\@cclv to \dimen@
+      \fi
+      %%%%% END CHANGE
+      \set@keptmarks
+      \setbox\count@
+      \vbox to\dimen@
+      {\unvbox\count@
+        \remove@discardable@items
+    \ifshr@nking\vfill\fi}%
+    }%
+    \setbox\mult@rightbox
+    \vsplit\@cclv to\dimen@
+    \set@keptmarks
+    \setbox\mult@rightbox\vbox to\dimen@
+    {\unvbox\mult@rightbox
+      \remove@discardable@items
+  \ifshr@nking\vfill\fi}%
+    \let\ifshr@king\ifshr@kingsaved
+  \ifvoid\@cclv \else
+    \unvbox\@cclv
+    \ifnum\outputpenalty=\@M
+  \else
+    \penalty\outputpenalty
+  \fi
+  \ifvoid\footins\else
+    \PackageWarning{multicol}%
+    {I moved some lines to
+      the next page.\MessageBreak
+      Footnotes on page
+    \thepage\space might be wrong}%
+  \fi
+  \ifnum \c@tracingmulticols>\thr@@
+\hrule\allowbreak \fi
+  \fi
+  \ifx\@empty\kept@firstmark
+    \let\firstmark\kept@topmark
+    \let\botmark\kept@topmark
+  \else
+    \let\firstmark\kept@firstmark
+    \let\botmark\kept@botmark
+  \fi
+  \let\topmark\kept@topmark
+  \mult@info\tw@
+  {Use kept top mark:\MessageBreak
+    \meaning\kept@topmark
+    \MessageBreak
+    Use kept first mark:\MessageBreak
+    \meaning\kept@firstmark
+    \MessageBreak
+    Use kept bot mark:\MessageBreak
+    \meaning\kept@botmark
+    \MessageBreak
+    Produce first mark:\MessageBreak
+    \meaning\firstmark
+    \MessageBreak
+    Produce bot mark:\MessageBreak
+    \meaning\botmark
+  \@gobbletwo}%
+  \setbox\@cclv\vbox{\unvbox\partial@page
+  \page@sofar}%
+  \@makecol\@outputpage
+  \global\let\kept@topmark\botmark
+  \global\let\kept@firstmark\@empty
+  \global\let\kept@botmark\@empty
+  \mult@info\tw@
+  {(Re)Init top mark:\MessageBreak
+    \meaning\kept@topmark
+  \@gobbletwo}%
+  \global\@colroom\@colht
+  \global \@mparbottom \z@
+  \process@deferreds
+\@whilesw\if@fcolmade\fi{\@outputpage
+    \global\@colroom\@colht
+  \process@deferreds}%
+  \mult@info\@ne
+  {Colroom:\MessageBreak
+    \the\@colht\space
+    after float space removed
+  = \the\@colroom \@gobble}%
+  \set@mult@vsize \global
+  \fi}
+  \global\let\tikz@ensure@dollar@catcode=\relax
+
+  \def\mathcolor#1#{\@mathcolor{#1}}
+  \def\@mathcolor#1#2#3{%
+    \protect\leavevmode
+    \begingroup
+    \color#1{#2}#3%
+    \endgroup
+  }
+
+  \makeatother
+  \setlength{\parindent}{0pt}
+
+  \setminted{tabsize=2, breaklines}
+  % Remove belowskip of minted
+  \setlength\partopsep{-\topsep}
+
+
+  \newcolumntype{a}{>{\hsize=1.5\hsize}X}
+  \newcolumntype{b}{>{\hsize=.25\hsize}X}
+
+  \setlength\columnsep{1.5pt}
+  \setlength\columnseprule{0.1pt}
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+
+\scriptsize
+\begin{multicols*}{4}
+  \raggedcolumns
+  \section{SQL}
+  \begin{itemize}
+      \item Comments: -- or /**/
+      \item Built in data types: boolean, integer, float8, numeric, char, varchar, text, date, timestamp, array, JSON
+      \item Comparison with null value is unknown and arithmetic with null is null
+      \item Check constraints: e.g. check day in (1, 2, 3, 4, 5) or check ((day >= 8) and (day <= 15))
+      \item Constraint names: constraint <constraint\_name> <constraint\_type>
+      \item Foreign key constraint violations:
+      \begin{itemize}
+          \item NO ACTION: reject delete/update if it violates constraint (default option)
+          \item RESTRICT: similar to NO ACTION except that constraint checking cannot be deferred
+          \item CASCADE: propogates delete/update to referencing tuples
+          \item SET DEFAULT: updates foreign keys of referencing tuples to some default value
+          \item SET NULL: updates foreign keys of referencing tuples to null value
+      \end{itemize}
+      \item Transaction:
+      \begin{itemize}
+          \item Consists of one or more update/retrieval operations \\
+          begin; \\
+          ... \\ \\
+          commit;
+      \end{itemize}
+      \item Distinct keyword: Remove duplicate records
+      \item Set operations: If Q1 and Q2 are union compatible relations then
+      \begin{itemize}
+          \item Q1 union Q2 : $$Q1 \cup Q2$$
+          \item Q1 intersect Q2: $$Q1 \cap Q2$$
+          \item Q1 except Q2: $$Q1 \-- Q2$$
+          \item union, intersect and except remove duplicate records by themselves and preserve duplicate themselves when all keyword is appended e.g. union all     
+      \end{itemize}
+      \item Subquery expressions: 
+      \begin{itemize}
+          \item EXISTS subqueries: EXISTS (subquery)
+          \item IN subqueries: expression IN (subquery)
+          \item ANY/SOME subqueries: expression operator ANY (subquery)
+          \item ALL subqueries: expression operator ALL (subquery)
+      \end{itemize}
+      \item Database modifications with subqueries: e.g. \\ insert into Enrolls (sid, cid) \\ select studentId, 101 from Students where year = 1
+      \item Aggregate functions: For empty relation and relation with all null values, aggregate functions like min, max output null but count outputs 0 and n respectively
+      \item GROUP BY clause properties:
+      For each column A in relation R that appears in the SELECT clause, one of the following conditions must hold:
+      \begin{itemize}
+          \item A appears in the GROUP BY clause,
+          \item A appears in an aggregated expression in the SELECT clause (e.g., min(A))
+          \item the primary key of R appears in the GROUP BY clause
+          \item if an aggregate function appears in the SELECT clause and there is no GROUP BY clause, then the SELECT clause must not contain any column that is not in an aggregated expression
+      \end{itemize}
+      \item HAVING clause properties:
+      For each column A in relation R that appears in the HAVING clause, one of the following conditions must hold:
+      \begin{itemize}
+          \item A appears in the GROUP BY clause,
+          \item A appears in an aggregated expression in the HAVING
+          clause, or
+          \item the primary (or a candidate) key of R appears in the
+          GROUP BY clause
+      \end{itemize}
+      \item Conceptual evaluation of Queries: \\
+      select distinct select-list \\
+      from from-list \\
+      where where-condition \\
+      group by groupby-list \\
+      having having-condition \\
+      order by orderby-list \\
+      offset offset-specification \\
+      limit limit-specification
+      \begin{itemize}
+         \item Compute the cross-product of the tables in from-list
+         \item Select the tuples in the cross-product that evaluate to true for the where-condition
+        \item Partition the selected tuples into groups using the groupby-list
+        \item Select the groups that evaluate to true for the having-condition condition
+        \item For each selected group, generate an output tuple by selecting/computing the
+              attributes/expressions that appear in the select-list
+        \item Remove any duplicate output tuples
+        \item Sort the output tuples based on the orderby-list
+        \item Remove the appropriate output tuples based on the offset-specification \& limit-specification
+      \end{itemize}
+      \item Common Table Expressions: \\
+      with 
+        R1 as (Q1), \\
+        R2 as (Q2), \\
+        ..., \\
+        Rn as (Qn) \\
+        select/insert/update/delete statement S; \\
+      \item Views: create view <view\_name> as (<SQL statement>);
+      \item Conditional Expressions
+      \begin{itemize}
+          \item CASE expression: \\
+          CASE \\
+              WHEN condition\_1  THEN result\_1 \\
+              WHEN condition\_2  THEN result\_2 \\
+              WHEN ...\, \\
+              ELSE else\_result \\
+          END
+          \item COALESCE
+          \begin{itemize}
+            \item In built function that returns first non-null value in its arguments and null if all arguments are null
+            \item e.g. select name, coalesce(third, second, first) as result from Tests;
+          \end{itemize}
+          \item NULLIF
+          \begin{itemize}
+            \item In built function that returns null if first argument is equal to second argument otherwise returns the first argument
+            \item e.g. select name, nullif(result, 'absent') as status from Tests;
+          \end{itemize}
+      \end{itemize}
+      \item Pattern Matching with LIKE Operator
+      \begin{itemize}
+          \item Underscore $\_$ matches any single character
+          \item Percent $\%$ matches any sequence of 0 or more characters
+          \item "string \textbf{not like} pattern" is equivalent to "\textbf{not} (string \textbf{like} pattern)"
+          \item For more advanced regular expressions, use \textbf{similar to} operator
+      \end{itemize}
+  \end{itemize}
+  \section{PSM}
+    \begin{itemize}
+      \item General syntax: \\
+         CREATE OR REPLACE FUNCTION/PROCEDURE \\ <function\_name> (<input\_params with type>, \\
+         <output\_params with type>) \\
+         RETURNS <function\_type> AS \$func\$ \\
+         DECLARE \\
+         .. \\
+         BEGIN \\
+         .. \\
+         END \\
+         \$func\$ LANGUAGE [sql|plpgsql]; \\
+     NOTE: use sql when you are executing purely SQL statements in the function body and plpgsql for other programmatic features such as assigning to variables and looping over records
+     \item Cursor:
+       \begin{itemize}
+       \item DECLARE curs CURSOR FOR (<sql statement>);
+       \item BEGIN:
+         \begin{itemize}
+              \item open curs;
+              \item fetch [ direction \{ from | in \} ] cursor\_variable into target\_variable;
+              \item close curs;
+         \end{itemize}
+      \end{itemize}
+   \end{itemize}
+  \section{Triggers}
+    \begin{itemize}
+      \item General syntax for Triggers: \\
+      CREATE TRIGGER <trigger\_name> \\ 
+      [AFTER|BEFORE|INSTEAD OF] [INSERT|UPDATE|DELETE] ON <table\_name> \\
+      FOR EACH [ROW|STATEMENT] EXECUTE FUNCTION <trigger\_function\_name>\\
+      \item General syntax for Trigger functions:
+      CREATE OR REPLACE FUNCTION <trigger\_function\_name> \\
+      (<input\_parameters\_with\_types>, \\ <output\_parameters\_with\_types>) \\
+      RETURNS TRIGGER AS \$\$ \\
+      DECLARE \\
+      ..
+      BEGIN \\
+      ..
+      END; \\
+      \$\$
+      \item Return values of Trigger Functions:
+        \begin{itemize}
+            \item For a BEFORE INSERT trigger:
+            \begin{itemize}
+                \item Returning a non-tuple t: t will be inserted
+                \item Returning a null tuple: no insertion operation will be performed
+            \end{itemize}
+            \item Similar for Update and Delete triggers
+            \item For After triggers, the return value does not matter
+            \item For an INSTEAD OF trigger:
+            \begin{itemize}
+                \item Returning NULL: Ignore all operations on the current row
+                \item Returning non-NULL: Proceed as per normal
+            \end{itemize}
+        \end{itemize}
+      \item Statement level triggers ignore the values returned by the trigger functions
+      \item INSTEAD OF is only allowed on row-level while BEFORE/AFTER are allowed both on statement-level and row-level
+      \item Trigger condition: \\
+            CREATE TRIGGER \\
+            ..  \\
+            WHEN (<condition>) \\
+            .. \\
+      \item Deferred Trigger: \\
+            CREATE CONSTRAINT TRIGGER <trigger\_name> \\
+            .. \\
+            DEFERRABLE [INITIALLY DEFERRED | INITIALLY IMMEDIATE] \\
+            .. \\
+      \item Order of Trigger Activation:
+        \begin{itemize}
+            \item BEFORE statement -> BEFORE row -> AFTER row -> AFTER statement
+            \item Within each category, triggers are activated in alphabetic order
+            \item If BEFORE row returns NULL, subsequent triggers on the same row are omitted
+        \end{itemize}
+       \section{Function Dependencies}
+       \begin{itemize}
+           \item Armstrong's Axioms:
+           \begin{enumerate}
+               \item Reflexivity: AB -> A
+               \item Augmentation: If A ->B then AC -> BC
+               \item Transitivity: If A -> B and B -> C then A -> C
+           \end{enumerate}
+           \item Algorithm for finding closure: Keep adding attributes that are activated directly or indirectly via FDs to the closure
+           \item Algorithm for finding keys: Start from the smaller subsets and find those whose closures include all the attributes in the table. The attributes that do not appear on the right hand side of an FD have to be included in the key
+           \item Prime attributes: Attributes that do not appear in a key
+       \end{itemize}
+  \end{itemize}
+  \section{BCNF}
+   \begin{itemize}
+       \item Decomposed FD: Has only one attribute on the right hand side
+       \item BCNF Definition: A table R is in BCNF if and only if every non-trivial and decomposed FD has a superkey on its left hand side
+       \item BCNF Check:
+           \begin{enumerate}
+                \item Compute the closure of each subset
+                \item Check for a "more but not all" closure i.e a closure that contains more attributes than the subset but not all the attributes.
+                \item If one such closure does exist, the table is not in BCNF
+          \end{enumerate}
+       \item BCNF Decomposition:
+        \begin{enumerate}
+            \item Find a subset X of attributes in R such that its closure contains more attributes than X but not all attributes
+            \item Decompose R into two tables R1 and R2 such that R contains all attributes in {X}+ and R2 contains all attributes in X as well as the attributes not in {X}+
+            \item Check if R1 and R2 are in BCNF, otherwise repeat Step 2 to decompose the tables further
+            \item When deriving closures on decomposed tables, we project the original closure and remove attributes that do not appear in the decomposed table 
+        \end{enumerate}
+        \item Lossless Decomposition: Common attributes in R1 or R2 that constitute a superkey of either tables
+   \end{itemize}
+  \section{3NF}
+   \begin{itemize}
+       \item Dependency Preservation: The FDs on the original table can be recovered from the FDs on the decomposed tables (derived from projected closure) i.e S', the set of FDs on decomposed tables is equivalent to S, the set of FDs on the original table.
+       \item FD equivalence: Two sets of FDs S and S' are equivalent, if each FD in S can be derived from FDs in S' and vice versa.
+       \item BCNF may not be dependency preserving.
+       \item 3NF Definition: A table R is in 3NF if and only if every non-trivial and decomposed FD has a superkey on its left hand side:
+       \begin{itemize}
+           \item Either the left hand side is a superkey
+           \item Right hand side is a prime attribute
+       \end{itemize}
+       \item 3NF Check:
+           \begin{enumerate}
+                \item Compute the closure of each subset
+                \item Check for a "more but not all" closure i.e a closure that contains more attributes than the subset but not all the attributes such that at least one of the extra attributes is not a prime attribute
+                \item If one such closure does exist, the table is not in 3NF
+          \end{enumerate}
+       \item 3NF Decomposition:
+        \begin{enumerate}
+            \item Derive a minimal basis for the set of FDs on R
+            \item In the minimal basis, combine the FDs whose left hand sides are the same
+            \item Create a table for each FD
+            \item If none of the tables contains a key for R, create a table that contains such a key. This allows lossless join of tables 
+        \item Algorithm for Minimal Basis:
+        \begin{enumerate}
+            \item Transform the FDs into non-trivial and decomposed FDs
+            \item Remove redundant attributes on the left hand side of each FD
+            \item Remove redundant FDs
+        \end{enumerate}
+        \end{enumerate}
+   \end{itemize}
+\end{multicols*}
+\end{document}
+  
