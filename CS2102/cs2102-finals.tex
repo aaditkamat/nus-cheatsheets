@@ -264,6 +264,14 @@ outline/.style={draw=circle edge, thick}}
   \raggedcolumns
   \section{SQL}
   \begin{itemize}
+      \item Joins:
+      \begin{itemize}
+         \item Inner join (aka join): Cross product and WHERE condition
+         \item Left outer join (aka left join): Include all rows on left table with null values for records in the right table that do not participate in the join
+         \item Right outer join (aka right join): Include all rows on right table with null values for records in the left table that do not participate in join
+         \item Full outer join (aka full join): Include all rows on both tables with respective null values for records in the other table that do not participate in join
+         \item Natural joins: Natural versions of joins do so on the basis of equality between common columns 
+     \end{itemize}
       \item Comments: -- or /**/
       \item Built in data types: boolean, integer, float8, numeric, char, varchar, text, date, timestamp, array, JSON
       \item Comparison with null value is unknown and arithmetic with null is null
